@@ -10,20 +10,15 @@
             <div class=""> 
                 <div class="flex flex-col gap-11 md:gap-2.5">
                     <p>danh sách nhận thưởng :</p>
-                    <div class="flex gap-4 overflow-x-auto">
-                        <div v-for="item,index in 4" :key="index" class="bg-amber-300/100 border-2 border-amber-500 p-1 rounded-lg"> 
-                            <div class="h-[200px] bg-slate-50 min-w-[135px] flex flex-col justify-stretch rounded-md overflow-hidden">
-                                <div class="h-[12%] flex items-center text-amber-300 text-sm font-semibold p-2">
-                                    Tên thẻ
-                                </div>
-                                <div class="h-[60%] bg-blue-500/30 flex items-center justify-center px-1">
-                                    Ảnh thẻ
-                                </div>
-                                <div class="h-[28%] text-sm border-t-2 border-main p-1">
-                                    Nội dung thẻ
-                                </div>
-                            </div>                            
-                        </div>
+                    <div class="flex gap-5 md:gap-9 flex-col md:flex-row">
+                        <!-- <GameCardBox :img="'/img/card/test/Ren_3.jpg'" :type="'3'" :name="'a'"/>
+                        <GameCardBox :img="'/img/card/test/Tya_2.jpg'" :type="'2'" :name="'a'"/> -->
+                        
+                        <GameCardBox :img="'/img/card/test/GiaLam_1.jpg'" :type="'1'" :name="'a'"/>
+                        <GameCardBox :img="'/img/card/test/Ren_2.jpg'" :type="'2'" :name="'a'"/>
+                        <GameCardBox :img="'/img/card/test/GiaLam_3.jpg'" :type="'3'" :name="'a'"/>
+                        <GameCardBox :img="'/img/card/test/Tya_4.jpg'" :type="'4'" :name="'a'"/>
+                        <GameCardBox :img="'/img/card/test/Ren_4.jpg'" :type="'5'" :name="'a'"/>
                     </div>
                 </div>
                 <div class="flex gap-4 mt-2 md:mt-3">
