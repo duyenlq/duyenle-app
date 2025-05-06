@@ -9,15 +9,18 @@
         </div>
     </div> -->
     <div class="h-[300px] w-[200px] relative flex items-center justify-center cursor-pointer" @click="flipped = !flipped">
-        <div class="absolute inset-0 rounded-[10px] blur-xl z-[-2] translate-y-1 scale-95 duration-700" :class="magic_card_shadow,{'hidden':type == '1','!scale-0':flipped==false}" />
-        <div class="w-full h-full rounded-[10px] border-[1px] border-slate-300/40 p-[2px] transition-transform duration-1000" :class="{ 'rotate-y-180': flipped }" style="transform-style: preserve-3d;">
-            <div class="absolute inset-0 rounded-[10px] z-[-1] duration-1000 ease-out" :class="magic_card_shadow,{'opacity-0':flipped==false}"></div>
-            <div class="w-full h-full overflow-hidden rounded-[9px] duration-700 ease-in" :class="{'opacity-0':flipped==false}">                
+        <div class="absolute inset-0 rounded-[10px] blur-xl z-[-2] translate-y-1 scale-95 duration-700 delay-300" :class="magic_card_shadow,{'hidden':type == '1','!scale-0':flipped==false}" />
+        <div class="h-[300px] w-[200px]  rounded-[10px] border-[1px] border-slate-300/40 p-[2px] transition-transform duration-1000 rotate-y-180" :class="{ '!rotate-0': flipped }" style="transform-style: preserve-3d;">
+            <!-- ảnh viền -->
+            <div class="absolute inset-0 rounded-[10px] z-[-1] duration-700 delay-200" :class="magic_card_shadow,{'opacity-0':flipped==false}" />
+            <div class="relative w-full h-full overflow-hidden rounded-[9px] duration-700" :class="{'opacity-0':flipped==false}">                
                 <NuxtImg class="w-full h-full object-cover" :src="img?img:'/img/card/test/Ren_2.jpg'" loading="lazy" />
+                <div class="sparkle" v-if="flipped && (type == '4' || type == '5')"></div>
+                <div class="sparkle_2" v-if="flipped && (type == '4' || type == '5')"></div>
             </div> 
             <div class="absolute inset-0 w-full h-full overflow-hidden rounded-[9px] duration-700 ease-in" :class="{'opacity-0':flipped==true}">                
-                <NuxtImg class="w-full h-full object-cover" :src="'/img/card/test/layout.png'" loading="lazy" />
-            </div>           
+                <NuxtImg class="w-full h-full object-fill" :src="'/img/card/test/layout.png'" loading="lazy" />
+            </div>
         </div>
     </div>
 
@@ -62,6 +65,68 @@ const { img, name, type } = defineProps<
 
     .rotate-y-180 {
         transform: rotateY(180deg);
+    }
+
+    .sparkle {
+        position: absolute;
+        top: 0;
+        left: -80%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            120deg, 
+            rgba(255, 255, 255, 0) 0%, 
+            rgba(255, 255, 255, 0.8) 50%, 
+            rgba(255, 255, 255, 0) 100%
+        ), 
+        linear-gradient(
+            60deg, 
+            rgba(173, 216, 230, 0.3) 0%, 
+            rgba(255, 255, 255, 0.5) 50%, 
+            rgba(173, 216, 230, 0.3) 100%
+        );
+        opacity: 0.6;
+        transform: skewX(-22deg);
+        animation: sparkleMove 4s infinite;
+        z-index: 1;
+        filter: blur(40px)        
+    }
+
+    .sparkle_2 {
+        position: absolute;
+        top: 0;
+        left: -80%;
+        width: 40%;
+        height: 100%;
+        /* background: linear-gradient(
+            120deg, 
+            rgba(255, 255, 255, 0) 0%, 
+            rgba(255, 255, 255, 0.8) 50%, 
+            rgba(255, 255, 255, 0) 100%
+        ), 
+        linear-gradient(
+            60deg, 
+            rgba(173, 216, 230, 0.3) 0%, 
+            rgba(255, 255, 255, 0.5) 50%, 
+            rgba(173, 216, 230, 0.3) 100%
+        ); */
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(173, 216, 230, 0.5));
+        opacity: 0.6;
+        transform: skewX(-22deg);
+        animation: sparkleMove 4s infinite;
+        animation-delay: 2000ms;
+        z-index: 1;
+        filter: blur(40px)        
+    }
+
+    @keyframes sparkleMove {
+        0% {
+            left: -80%;
+        }
+
+        100% {
+            left: 130%;
+        }
     }
 
 </style>
