@@ -67,7 +67,7 @@
     // const errorValue = ref('');
     const funcInput = (value: any) => {
         // console.log("Đang nhập dữu liệu!", value?.value);
-        emitValue('update:modelValue', value?.value);
+        emitValue('update:modelValue', (value?.value).trim());
         emitValue('update:error', true);
         check(value?.value);
         

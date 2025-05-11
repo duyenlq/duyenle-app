@@ -2,7 +2,7 @@
     <div class="flex flex-col">
         <label class="flex flex-col">
             <div for="" class="labelInput">{{ props.label }}</div>
-            <input :type="props.type" :placeholder="props.placeholder" :readonly="props.readonly" class="inputClass" :class="{'!bg-slate-300/30':props.readonly}" :value="props.modelValue" @input="funcInput($event?.target)">
+            <input type="file" :placeholder="props.placeholder" class="inputClass" @change="funcInput($event?.target)" accept="image/png, image/jpeg, image/webp">
         </label>
         <div class="mt-1 flex justify-end">
             <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ error }}</span>
@@ -11,7 +11,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 const props = defineProps({
     modelValue: {
         type: String,
@@ -37,18 +37,13 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    readonly: {
-        type: Boolean,
-        default: false,
-        required: false,
-    },
 })
 
 const emitValue = defineEmits(['update:modelValue', 'update:error']);
 // const errorValue = ref('');
 const funcInput = (value: any) => {
     // console.log("Đang nhập dữu liệu!", value?.value);
-    emitValue('update:modelValue', (value?.value).trim());
+    emitValue('update:modelValue', value.files[0]);
     emitValue('update:error', true);
     check(value?.value);
     
@@ -56,7 +51,7 @@ const funcInput = (value: any) => {
 
 const check = ( value: any )=>{
     // errorValue.value = checkNull6(value);
-    emitValue('update:error', checkNull6(value));
+    emitValue('update:error', checkNull(value));
 }
 
 watch(() => props.checkValue, (value) => {
