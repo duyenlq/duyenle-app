@@ -20,7 +20,7 @@ export function textOnly(evt: any) {
 }
 
 export function checkNull(value:any) {
-  if(value.trim() == ''){
+  if(!value){
     return 'Vui lòng không bỏ trống.'
   }
   return ''

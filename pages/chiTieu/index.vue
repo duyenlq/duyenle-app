@@ -27,8 +27,9 @@ import { getDatetoString } from '~/utils/dateTime';
     const user = ref({
         id:'',
         name:'',
-        value:'',
+        value:'',   
     })
+    
     const userList = ref(<any>[])
     const editValue = ref(false)
     // const pathData = ref('/users')

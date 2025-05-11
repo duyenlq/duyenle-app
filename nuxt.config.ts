@@ -19,9 +19,9 @@ export default defineNuxtConfig({
     ]
   },
 
-  image: {
-    provider: 'twicpics', // Chuyển provider thành static để không dùng IPX
-  },
+  // image: {
+  //   provider: 'twicpics', // Chuyển provider thành static để không dùng IPX
+  // },
 
   css: [
     '@/assets/css/main.css',
