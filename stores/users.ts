@@ -29,7 +29,19 @@ export const useAuthStore = defineStore('authStore', {
             } catch (error) {
                 console.error('Error loading get:', error);
             }
-        },        
+        },
+        
+        async getUsersListData() {
+            try {
+                const data = await getDataFirebase('/users/list/');
+                // this.menu = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+                return data ? Object.keys(data).map(key => ({ ...data[key] })) : [];
+                // console.log(this.menu, 'Hiển thị menu đã get');
+                
+            } catch (error) {
+                console.error('Error loading get:', error);
+            }
+        },
 
         async getUsersById( param : any) {
             try {

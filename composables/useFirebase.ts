@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref as dbRef, set, get, update, remove } from "firebase/database";
+import { getDatabase, ref as ref, set, get, update, remove, query, orderByChild, equalTo } from "firebase/database";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL,listAll,deleteObject  } from "firebase/storage"
+import { collection, addDoc, getDocs, getFirestore } from 'firebase/firestore'
+// import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD253AaFVrieaszEK36gFE9TsJmfBok3xs",
@@ -15,12 +17,39 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const storage = getStorage(app)
+const storage = getStorage(app);
 
 export const getFirebase = async (path: any) => {
     try {
-        const dataRef = dbRef(db, path);
+        const dataRef = ref(db, path);
         const snapshot = await get(dataRef);
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            console.log('Không có dữ liệu, vui lòng check lại nha!');
+            return null;
+        }
+    } catch (error) {
+        console.error('Hiện tại đang lỗi:', error);
+        throw error;
+    }
+}
+
+export const getDataFirebase = async (path: any) => {
+    try {
+        // const dataRef = dbRef(db, path);
+
+        const dataRef = query(
+            ref(db, path),
+            orderByChild('active'),
+            equalTo(true)
+        );
+
+
+        const snapshot = await get(dataRef);
+
+// console.log(snapshot,"----------------");
+
         if (snapshot.exists()) {
             return snapshot.val();
         } else {
@@ -35,7 +64,7 @@ export const getFirebase = async (path: any) => {
 
 export const setFirebase = async (path: any, params: Object) => {
     try {
-        const dataRef = dbRef(db, path);
+        const dataRef = ref(db, path);
         await set(dataRef, params);
         console.log("Đã thêm vào Firebase thành công!");
     } catch (error) {
@@ -46,7 +75,7 @@ export const setFirebase = async (path: any, params: Object) => {
 
 export const updateFirebase = async (path: any, params: Object) => {
     try {
-        const dataRef = dbRef(db, path);
+        const dataRef = ref(db, path);
         await update(dataRef, params);
         console.log('Sủa chữa dữ liệu thành công!');
     } catch (error) {
@@ -57,7 +86,7 @@ export const updateFirebase = async (path: any, params: Object) => {
 
 export const removeFirebase = async (path: any) => {
     try {
-        const dataRef = dbRef(db, path);
+        const dataRef = ref(db, path);
         await remove(dataRef);
         console.log("Đã xóa dữ liệu thành công!");
     } catch (error) {
@@ -126,5 +155,6 @@ export const listAllImagesFirebase = async (folder: string = "uploads") => {
         return []
     }
 }
+
 
 

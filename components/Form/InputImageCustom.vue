@@ -61,10 +61,11 @@ const funcInput = async (value: any) => {
     console.log("Đang nhập dữu liệu!", value.files[0]);
     pending(true)
     emitValue('update:modelValue', value.files[0]);
-    urlImageLoad.value = (await saveImageCustomFirebase(value.files[0], randomName(value.files[0].name), 'loadingImage')).url    
-    // urlImageLoad.value = imageSave.url
-    console.log(urlImageLoad.value,'-----------------------');
-    
+    if(value.files[0]){
+        urlImageLoad.value = (await saveImageCustomFirebase(value.files[0], randomName(value.files[0].name), 'loadingImage')).url
+    }else{
+        useToast().add({ title: 'Thông báo' , description: 'Thao tác thất bại!', color: 'yellow', timeout:1000 });
+    }
     emitValue('update:error', true);
     check(value?.value);  
     pending(false)  
