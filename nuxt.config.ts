@@ -74,6 +74,9 @@ export default defineNuxtConfig({
         if (route.path.includes('/profile')) {
           route.path = route.path.replace('/profile', '/thong-tin-ca-nhan')
         }
+        if (route.path.includes('/cardGame')) {
+          route.path = route.path.replace('/cardGame', '/game-the-bai')
+        }
       })
     }
   },

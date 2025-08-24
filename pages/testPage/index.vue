@@ -13,6 +13,9 @@
 
 <script lang="ts" setup>
     import type { User, Role } from "@/models/user"
+    const { toggleLoadingModal } = useModalStore()
+    const { getUsersListData } = useAuthStore()
+
     const checkFormUser = ref(false);
 
     const formUser = ref({
@@ -39,6 +42,40 @@
         console.log(formUser.value, "From đã gửi!");
         
     }
+
+    const userList = ref();
+    const testData = ref();
+    const pro = ref(
+        {
+            name: "Áo thun nam",
+            price: 199000,
+            image: "https://example.com/image.jpg",
+            description: "Áo thun cotton 100%, co giãn 4 chiều",
+            createdAt: 1716012345678
+        }
+    )
+
+    testData.value =  getProducts('card')
+    console.log(testData.value,"+++++++++++++++++++++++");
+    
+
+        // Lấy dữ liệu
+    const getData = async ()=>{
+        toggleLoadingModal(true)
+        const { data }: any = await useAsyncData('getUserList', ()=> getUsersListData())
+        if(data.value.length > 0){
+            userList.value = data.value
+            console.log(userList.value,"Hiển thị danh sách user đã get");
+            
+        }else{
+            useToast().add({ title: 'Thông báo' , description: 'Danh sách hiện tại đang trống', color: 'yellow', timeout:1000 });
+        }
+        toggleLoadingModal(false)
+    }
+
+    onMounted(async () => {
+        getData()
+    });
 
 
 </script>
